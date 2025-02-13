@@ -3,3 +3,84 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.container {
+  max-width: $container-width;
+  padding-right: 20px;
+  padding-left: 20px;
+  margin: 0 auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $light-blue-color;
+  border-radius: 5px;
+  @include text(16px, 400, $white-color);
+
+  &.btn-big {
+    width: 422px;
+    height: 51px;
+    padding: 15px 40px;
+  }
+
+  &.btn-small {
+    width: 153px;
+    height: 36px;
+    padding: 10px 20px;
+  }
+}
+
+.input {
+  background-color: $white-color;
+  border-radius: 3px;
+  border: 1px solid $light-blue-color;
+  padding: 20px 64px 20px 20px;
+
+  &::placeholder {
+    @include text(14px, 400, $placeholder-color);
+  }
+}
+
+.input-checkbox {
+  input {
+    display: none;
+
+    &:checked {
+      & + label {
+        &::before {
+          background-image: url("../images/icons/check.svg");
+          background-position: center;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+      }
+    }
+  }
+
+  label {
+    position: relative;
+
+    span {
+      @include text(14px, 400);
+      margin-left: 24px;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: calc(50% - 7px);
+      left: 0;
+      width: 14px;
+      height: 14px;
+      border: 1px solid $primary-color;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+  }
+}

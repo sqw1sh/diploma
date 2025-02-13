@@ -1,0 +1,21 @@
+@mixin text($size: 16px, $weight: 400, $color: #071739) {
+  font-family: "Montserrat", sans-serif;
+  font-weight: $weight;
+  font-size: $size;
+  line-height: 130%;
+  color: $color;
+}
+
+@mixin title-38 {
+  font-family: "Lora", serif;
+  font-weight: 400;
+  font-size: 38px;
+  line-height: 130%;
+  color: $light-blue-color;
+}
+
+@mixin flex($align: center, $justify: center) {
+  display: flex;
+  align-items: $align;
+  justify-content: $justify;
+}
