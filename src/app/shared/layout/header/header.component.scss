@@ -1,0 +1,35 @@
+@import "../../../../assets/styles/mixins";
+@import "../../../../assets/styles/variables";
+
+.header {
+  padding: 40px 0;
+
+  .container {
+    @include flex(center, space-between);
+
+    .logo {
+      margin-right: 100px;
+    }
+
+    .wrapper {
+      width: 370px;
+      @include flex(center, space-between);
+
+      .phone {
+        @include text(16px, 500, $light-blue-color);
+      }
+
+      .profile {
+        a,
+        p {
+          @include flex();
+          gap: 7px;
+
+          span {
+            @include text(16px, 500);
+          }
+        }
+      }
+    }
+  }
+}

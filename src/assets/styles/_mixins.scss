@@ -6,12 +6,12 @@
   color: $color;
 }
 
-@mixin title-38 {
+@mixin title($size: 38px, $weight: 400, $color: #709fdc) {
   font-family: "Lora", serif;
-  font-weight: 400;
-  font-size: 38px;
+  font-weight: $weight;
+  font-size: $size;
   line-height: 130%;
-  color: $light-blue-color;
+  color: $color;
 }
 
 @mixin flex($align: center, $justify: center) {

@@ -5,7 +5,7 @@
 }
 
 .container {
-  max-width: $container-width;
+  max-width: calc($container-width + 40px);
   padding-right: 20px;
   padding-left: 20px;
   margin: 0 auto;
@@ -22,6 +22,9 @@ a {
   background-color: $light-blue-color;
   border-radius: 5px;
   @include text(16px, 400, $white-color);
+  outline: 0;
+  border: 0;
+  cursor: pointer;
 
   &.btn-big {
     width: 422px;
@@ -81,6 +84,43 @@ a {
       border: 1px solid $primary-color;
       border-radius: 3px;
       box-sizing: border-box;
+    }
+  }
+}
+
+.menu {
+  margin-right: 257px;
+
+  .menu-list {
+    list-style: none;
+    @include flex();
+    gap: 30px;
+
+    .menu-list-item {
+      .menu-link {
+        @include text(16px, 500);
+      }
+    }
+  }
+}
+
+.owl-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  width: calc(100% - 40px);
+
+  .owl-dot {
+    span {
+      margin: 0 10px !important;
+      border: 1px solid $white-color !important;
+      background-color: transparent !important;
+    }
+
+    &.active {
+      span {
+        background-color: $white-color !important;
+      }
     }
   }
 }

@@ -1,0 +1,64 @@
+@import "../../../assets/styles/variables";
+@import "../../../assets/styles/mixins";
+
+.page {
+  .main {
+    padding-bottom: 120px;
+
+    .container {
+      position: relative;
+
+      .slider-arrows {
+        position: absolute;
+        top: 230px;
+        left: 30px;
+        width: calc(100% - 60px);
+        @include flex(center, space-between);
+        z-index: 2;
+
+        .slider-arrow {
+          cursor: pointer;
+        }
+      }
+
+      .slide {
+        height: 500px;
+        padding: 100px 80px 98px 80px;
+        background-repeat: no-repeat;
+        background-size: cover;
+
+        .slide-subtitle {
+          @include text(12px, 600, $light-blue-color);
+        }
+
+        .slide-title {
+          width: 610px;
+          @include title(50px, 400, $white-color);
+          margin-bottom: 20px;
+
+          strong {
+            font-weight: normal;
+            color: $light-blue-color;
+          }
+        }
+
+        .slide-text {
+          width: 456px;
+          @include text(24px, 400, $white-color);
+          margin-bottom: 50px;
+        }
+      }
+    }
+  }
+
+  .services {
+    padding-bottom: 120px;
+
+    .container {
+      .services-title {
+        @include title();
+        margin-bottom: 40px;
+      }
+    }
+  }
+}

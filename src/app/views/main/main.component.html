@@ -1,0 +1,65 @@
+<main class="page">
+  <section class="main">
+    <div class="container">
+      <div class="slider-arrows">
+        <a class="slider-arrow arrow-prev" (click)="owlSlider.prev()">
+          <img src="assets/images/icons/arrow-prev.png" alt="Стрелка" />
+        </a>
+        <a class="slider-arrow arrow-next" (click)="owlSlider.next()">
+          <img src="assets/images/icons/arrow-next.png" alt="Стрелка" />
+        </a>
+      </div>
+      <owl-carousel-o [options]="customOptions" #owlSlider>
+        <ng-template carouselSlide>
+          <div
+            class="slide"
+            style="background-image: url('assets/images/slides/slide-2.jpg')"
+          >
+            <div class="slide-subtitle">Акция</div>
+            <div class="slide-title">
+              <span>Нужен грамотный </span><strong>копирайтер?</strong>
+            </div>
+            <div class="slide-text">
+              Весь декабрь у нас действует акция на работу копирайтера.
+            </div>
+            <button class="btn btn-small">Подробнее</button>
+          </div>
+        </ng-template>
+        <ng-template carouselSlide>
+          <div
+            class="slide"
+            style="background-image: url('assets/images/slides/slide-1.jpg')"
+          >
+            <div class="slide-subtitle">Предложение месяца</div>
+            <div class="slide-title">
+              <span>Продвижение в Instagram для вашего бизнеса </span
+              ><strong>-15%</strong>
+              <span>!</span>
+            </div>
+            <button class="btn btn-small">Подробнее</button>
+          </div>
+        </ng-template>
+        <ng-template carouselSlide>
+          <div
+            class="slide"
+            style="background-image: url('assets/images/slides/slide-3.jpg')"
+          >
+            <div class="slide-subtitle">Новость дня</div>
+            <div class="slide-title">
+              <strong>6 место</strong><span> в ТОП-10 SMM-агенств Москвы!</span>
+            </div>
+            <div class="slide-text">
+              Мы благодарим каждого, кто голосовал за нас!
+            </div>
+            <button class="btn btn-small">Подробнее</button>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+  </section>
+  <section class="services">
+    <div class="container">
+      <div class="services-title">Услуги, которые мы предлагаем</div>
+    </div>
+  </section>
+</main>

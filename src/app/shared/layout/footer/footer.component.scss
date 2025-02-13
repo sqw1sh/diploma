@@ -1,0 +1,59 @@
+@import "../../../../assets/styles/mixins";
+@import "../../../../assets/styles/variables";
+
+.footer {
+  padding: 40px 0 54px 0;
+  background-color: $cyan-color;
+
+  .container {
+    &.menu-container {
+      @include flex(center, start);
+      margin-bottom: 40px;
+    }
+
+    &.contact-container {
+      @include flex(baseline, start);
+      gap: 60px;
+      margin-bottom: 6px;
+    }
+
+    .logo {
+      margin-right: 40px;
+    }
+
+    .contact-item {
+      &:first-child {
+        max-width: 253px;
+      }
+
+      &:last-child {
+        .contact-item-title {
+          margin-bottom: 15px;
+        }
+      }
+
+      .contact-item-title {
+        @include text(16px, 500, $light-blue-color);
+        margin-bottom: 10px;
+      }
+
+      .contact-item-text {
+        @include text();
+      }
+
+      .btn {
+        @include text(12px, 500, $white-color);
+        margin-top: 10px;
+      }
+
+      .contact-item-socials {
+        @include flex(center, start);
+        gap: 12px;
+      }
+    }
+
+    .copy {
+      @include text(16px, 400, $light-blue-color);
+    }
+  }
+}
