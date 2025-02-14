@@ -9,16 +9,8 @@
       position: relative;
 
       .slider-arrows {
-        position: absolute;
         top: 230px;
         left: 30px;
-        width: calc(100% - 60px);
-        @include flex(center, space-between);
-        z-index: 2;
-
-        .slider-arrow {
-          cursor: pointer;
-        }
       }
 
       .slide {
@@ -58,6 +50,212 @@
       .services-title {
         @include title();
         margin-bottom: 40px;
+      }
+
+      .services-items {
+        @include flex(center, space-between);
+      }
+    }
+  }
+
+  .about {
+    padding-bottom: 120px;
+
+    .container {
+      @include flex(center, space-between);
+
+      .about-image {
+        img {
+          border-radius: 5px;
+        }
+      }
+
+      .about-info {
+        max-width: 703px;
+
+        .about-title {
+          @include title();
+          margin-bottom: 20px;
+        }
+
+        .about-description {
+          @include text(14px);
+          margin-bottom: 40px;
+
+          strong {
+            font-weight: 500;
+          }
+        }
+
+        .about-advantages {
+          .about-advantages-title {
+            @include title(26px);
+            margin-bottom: 20px;
+          }
+
+          .about-advantages-items {
+            display: grid;
+            grid-template-columns: repeat(2, 316px);
+            grid-row-gap: 20px;
+            grid-column-gap: 71px;
+
+            .about-advantages-item {
+              @include flex();
+              gap: 20px;
+
+              .about-advantages-item-number {
+                width: 40px;
+                text-align: center;
+                @include title(50px, 500);
+                position: relative;
+                flex-shrink: 0;
+                flex-grow: 0;
+
+                &::before {
+                  content: "";
+                  position: absolute;
+                  bottom: 5px;
+                  left: calc(50% - 20px);
+                  width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  background-color: $cyan-color;
+                  z-index: -1;
+                }
+              }
+
+              .about-advantages-item-description {
+                @include text(14px);
+
+                strong {
+                  font-weight: 500;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .top {
+    padding-bottom: 120px;
+
+    .container {
+      .top-title {
+        @include title();
+        margin-bottom: 40px;
+      }
+
+      .top-items {
+        @include flex(center, space-between);
+      }
+
+      .top-link {
+        @include flex(center, end);
+        margin-top: 40px;
+
+        a {
+          @include text(20px, 500, $light-blue-color);
+          @include flex();
+          gap: 14px;
+        }
+      }
+    }
+  }
+
+  .reviews {
+    padding-bottom: 120px;
+
+    .container {
+      position: relative;
+
+      .reviews-title {
+        @include title();
+        margin-bottom: 20px;
+      }
+
+      .slider-arrows {
+        width: calc(100% - 12px);
+        top: 187px;
+        left: -5px;
+      }
+
+      .review-card {
+        width: 396px;
+        height: 267px;
+        border-radius: 5px;
+        border: 1px solid $light-blue-color;
+        padding: 30px;
+
+        .review-card-header {
+          @include flex(center, start);
+          gap: 26px;
+          margin-bottom: 15px;
+
+          .review-card-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+
+          .review-card-name {
+            @include text(18px, 600, $light-blue-color);
+          }
+        }
+
+        .review-card-text {
+          @include text();
+          line-height: 140%;
+          height: 132px;
+        }
+      }
+    }
+  }
+
+  .contact {
+    padding-bottom: 120px;
+
+    .container {
+      @include flex(start, start);
+
+      .contact-map {
+        margin-right: 26px;
+      }
+
+      .contact-info {
+        .contact-title {
+          @include title();
+          margin-bottom: 20px;
+        }
+
+        .contact-item {
+          max-width: 501px;
+
+          &:not(:last-child) {
+            margin-bottom: 20px;
+          }
+
+          .contact-item-title {
+            @include text(20px, 500, $light-blue-color);
+            margin-bottom: 10px;
+          }
+
+          .contact-item-text {
+            @include text(14px);
+          }
+
+          .contact-item-socials {
+            @include flex(center, start);
+            gap: 20px;
+          }
+        }
       }
     }
   }

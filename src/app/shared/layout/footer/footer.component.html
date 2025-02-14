@@ -6,19 +6,43 @@
     <nav class="menu">
       <ul class="menu-list">
         <li class="menu-list-item">
-          <a class="menu-link">Услуги</a>
+          <a
+            [routerLink]="['/']"
+            routerLinkActive="router-link-active"
+            fragment="services"
+            class="menu-link"
+            >Услуги</a
+          >
         </li>
         <li class="menu-list-item">
-          <a class="menu-link">О нас</a>
+          <a
+            [routerLink]="['/']"
+            routerLinkActive="router-link-active"
+            fragment="about"
+            class="menu-link"
+            >О нас</a
+          >
         </li>
         <li class="menu-list-item">
           <a class="menu-link">Статьи</a>
         </li>
         <li class="menu-list-item">
-          <a class="menu-link">Отзывы</a>
+          <a
+            [routerLink]="['/']"
+            routerLinkActive="router-link-active"
+            fragment="reviews"
+            class="menu-link"
+            >Отзывы</a
+          >
         </li>
         <li class="menu-list-item">
-          <a class="menu-link">Контакты</a>
+          <a
+            [routerLink]="['/']"
+            routerLinkActive="router-link-active"
+            fragment="contact"
+            class="menu-link"
+            >Контакты</a
+          >
         </li>
       </ul>
     </nav>
@@ -37,9 +61,7 @@
     </div>
     <div class="contact-item">
       <div class="contact-item-title">E-mail</div>
-      <a href="mailto:info@itstorm.com" class="contact-item-text"
-        >info@itstorm.com</a
-      >
+      <p class="contact-item-text contact-item-text-email">info@itstorm.com</p>
     </div>
     <div class="contact-item">
       <div class="contact-item-title">Мы в социальных сетях:</div>

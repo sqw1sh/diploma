@@ -1,0 +1,44 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
+
+.service-card {
+  width: 290px;
+  height: 498px;
+
+  .service-card-image {
+    width: 290px;
+    height: 290px;
+    margin-bottom: 15px;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  }
+
+  .service-card-title {
+    @include text(20px, 500, $light-blue-color);
+    margin-bottom: 10px;
+  }
+
+  .service-card-description {
+    @include text(14px);
+    height: 90px;
+    margin-bottom: 15px;
+  }
+
+  .service-card-extra {
+    @include flex(center, space-between);
+
+    .service-card-price {
+      @include text(20px, 600, $light-blue-color);
+    }
+
+    .btn {
+      width: 163px;
+      height: 51px;
+    }
+  }
+}

@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 .container {
@@ -122,5 +123,16 @@ a {
         background-color: $white-color !important;
       }
     }
+  }
+}
+
+.slider-arrows {
+  position: absolute;
+  width: calc(100% - 60px);
+  @include flex(center, space-between);
+  z-index: 2;
+
+  .slider-arrow {
+    cursor: pointer;
   }
 }

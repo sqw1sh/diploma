@@ -50,6 +50,10 @@
         @include flex(center, start);
         gap: 12px;
       }
+
+      .contact-item-text-email {
+        font-size: 14px;
+      }
     }
 
     .copy {

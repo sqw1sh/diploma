@@ -9,6 +9,8 @@ import { FooterComponent } from './shared/layout/footer/footer.component';
 import { MainComponent } from './views/main/main.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { ServiceCardComponent } from './shared/components/service-card/service-card.component';
+import { ArticleCardComponent } from './shared/components/article-card/article-card.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     HeaderComponent,
     FooterComponent,
     MainComponent,
+    ServiceCardComponent,
+    ArticleCardComponent,
   ],
   imports: [
     BrowserModule,
