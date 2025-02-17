@@ -23,10 +23,12 @@
         a,
         p {
           @include flex();
+          line-height: unset;
           gap: 7px;
 
           span {
             @include text(16px, 500);
+            line-height: unset;
           }
         }
       }

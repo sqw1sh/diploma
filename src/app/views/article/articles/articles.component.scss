@@ -1,0 +1,100 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
+
+.articles {
+  padding-top: 80px;
+  padding-bottom: 120px;
+
+  .container {
+    .articles-title {
+      @include title();
+      margin-bottom: 40px;
+    }
+
+    .articles-header {
+      @include flex(start, space-between);
+
+      .applied-filters {
+        @include flex(start, start);
+        flex-wrap: wrap;
+        gap: 15px;
+        margin-right: 20px;
+
+        .applied-filter {
+          @include flex(center, center);
+          gap: 8px;
+          padding: 8px 20px;
+          border: 1px solid $light-blue-color;
+          border-radius: 5px;
+
+          span {
+            @include text(16px, 400, $light-blue-color);
+          }
+
+          svg {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .filter-select {
+      position: relative;
+
+      .filter-select-header {
+        cursor: pointer;
+        width: 257px;
+        padding: 12px 23px;
+        @include flex(center, space-between);
+
+        span {
+          @include text();
+          line-height: unset;
+        }
+      }
+
+      .filter-select-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        padding: 12px 23px;
+        background-color: $white-color;
+        border: 1px solid $cyan-color;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        z-index: 2;
+
+        .filter-select-menu-item {
+          @include flex(center, space-between);
+          cursor: pointer;
+
+          &:not(:last-child) {
+            margin-bottom: 14px;
+          }
+
+          span {
+            @include text(16px, 400, $light-gray-color);
+          }
+
+          &.active {
+            span {
+              color: $primary-color;
+            }
+          }
+        }
+      }
+
+      &.open {
+        background-color: $cyan-color;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+
+        .filter-select-menu {
+          display: block;
+        }
+      }
+    }
+  }
+}

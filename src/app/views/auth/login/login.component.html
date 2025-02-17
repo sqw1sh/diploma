@@ -1,0 +1,31 @@
+<section class="page-form page-login">
+  <div class="container">
+    <form class="form form-login">
+      <div class="form-title">Войти в личный кабинет</div>
+      <div class="form-control">
+        <input type="email" class="input" placeholder="Электронная почта" />
+      </div>
+      <div class="form-control">
+        <input type="password" class="input" placeholder="Пароль" />
+      </div>
+      <div class="input-checkbox">
+        <input type="checkbox" id="agree" />
+        <label for="agree">
+          <p>Запомнить меня</p>
+        </label>
+      </div>
+      <button class="btn btn-big">Войти</button>
+      <div class="form-extra">
+        <span
+          >Нет аккаунта?
+          <a [routerLink]="['/register']" routerLinkActive="router-link-active"
+            >Пройдите регистрацию</a
+          ></span
+        >
+      </div>
+    </form>
+    <div class="form-image">
+      <img src="assets/images/auth/auth-2.jpg" alt="Регистрация" />
+    </div>
+  </div>
+</section>

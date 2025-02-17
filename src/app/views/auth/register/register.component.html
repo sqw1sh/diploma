@@ -1,0 +1,40 @@
+<section class="page-form page-register">
+  <div class="container">
+    <form class="form form-register">
+      <div class="form-title">Регистрация на сайте</div>
+      <div class="form-control">
+        <input type="text" class="input" placeholder="Ваше имя" />
+      </div>
+      <div class="form-control">
+        <input type="email" class="input" placeholder="Электронная почта" />
+      </div>
+      <div class="form-control">
+        <input type="password" class="input" placeholder="Пароль" />
+      </div>
+      <div class="input-checkbox">
+        <input type="checkbox" id="agree" />
+        <label for="agree">
+          <p>
+            <span>Я принимаю </span>
+            <a>условия пользовательского соглашения </a>
+            <span>и даю </span>
+            <a>согласие на обработку персональных данных</a>
+            <span>.</span>
+          </p>
+        </label>
+      </div>
+      <button class="btn btn-big">Зарегистрироваться</button>
+      <div class="form-extra">
+        <span
+          >Уже есть аккаунт?
+          <a [routerLink]="['/login']" routerLinkActive="router-link-active"
+            >Войдите</a
+          ></span
+        >
+      </div>
+    </form>
+    <div class="form-image">
+      <img src="assets/images/auth/auth-1.jpg" alt="Регистрация" />
+    </div>
+  </div>
+</section>

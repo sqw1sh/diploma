@@ -11,6 +11,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ServiceCardComponent } from './shared/components/service-card/service-card.component';
 import { ArticleCardComponent } from './shared/components/article-card/article-card.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ArticleCardComponent } from './shared/components/article-card/article-c
     RouterModule,
     BrowserAnimationsModule,
     CarouselModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

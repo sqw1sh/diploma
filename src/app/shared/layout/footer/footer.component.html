@@ -6,43 +6,24 @@
     <nav class="menu">
       <ul class="menu-list">
         <li class="menu-list-item">
-          <a
-            [routerLink]="['/']"
-            routerLinkActive="router-link-active"
-            fragment="services"
-            class="menu-link"
-            >Услуги</a
-          >
+          <a (click)="navigate('services')" class="menu-link">Услуги</a>
+        </li>
+        <li class="menu-list-item">
+          <a (click)="navigate('about')" class="menu-link">О нас</a>
         </li>
         <li class="menu-list-item">
           <a
-            [routerLink]="['/']"
+            [routerLink]="['/articles']"
             routerLinkActive="router-link-active"
-            fragment="about"
             class="menu-link"
-            >О нас</a
+            >Статьи</a
           >
         </li>
         <li class="menu-list-item">
-          <a class="menu-link">Статьи</a>
+          <a (click)="navigate('reviews')" class="menu-link">Отзывы</a>
         </li>
         <li class="menu-list-item">
-          <a
-            [routerLink]="['/']"
-            routerLinkActive="router-link-active"
-            fragment="reviews"
-            class="menu-link"
-            >Отзывы</a
-          >
-        </li>
-        <li class="menu-list-item">
-          <a
-            [routerLink]="['/']"
-            routerLinkActive="router-link-active"
-            fragment="contact"
-            class="menu-link"
-            >Контакты</a
-          >
+          <a (click)="navigate('contact')" class="menu-link">Контакты</a>
         </li>
       </ul>
     </nav>
@@ -56,12 +37,18 @@
     </div>
     <div class="contact-item">
       <div class="contact-item-title">Телефон</div>
-      <p class="contact-item-text">+7 (499) 343-13-34</p>
-      <a href="tel:+74993431334" class="btn btn-small">Перезвоните мне</a>
+      <a href="tel:+74993431334" class="contact-item-text"
+        >+7 (499) 343-13-34</a
+      >
+      <button class="btn btn-small">Перезвоните мне</button>
     </div>
     <div class="contact-item">
       <div class="contact-item-title">E-mail</div>
-      <p class="contact-item-text contact-item-text-email">info@itstorm.com</p>
+      <a
+        href="mailto:info@itstorm.com"
+        class="contact-item-text contact-item-text-email"
+        >info@itstorm.com</a
+      >
     </div>
     <div class="contact-item">
       <div class="contact-item-title">Мы в социальных сетях:</div>

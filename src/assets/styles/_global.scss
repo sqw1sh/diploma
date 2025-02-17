@@ -43,6 +43,7 @@ a {
 .input {
   background-color: $white-color;
   border-radius: 3px;
+  width: 422px;
   border: 1px solid $light-blue-color;
   padding: 20px 64px 20px 20px;
 
@@ -70,7 +71,7 @@ a {
   label {
     position: relative;
 
-    span {
+    p {
       @include text(14px, 400);
       margin-left: 24px;
     }
@@ -85,6 +86,7 @@ a {
       border: 1px solid $primary-color;
       border-radius: 3px;
       box-sizing: border-box;
+      cursor: pointer;
     }
   }
 }
@@ -99,7 +101,17 @@ a {
 
     .menu-list-item {
       .menu-link {
+        cursor: pointer;
         @include text(16px, 500);
+        transition: 0.3s;
+
+        &.router-link-active {
+          color: $light-blue-color;
+        }
+
+        &:hover {
+          color: $light-blue-color;
+        }
       }
     }
   }

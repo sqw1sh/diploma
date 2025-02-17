@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { ArticleService } from 'src/app/shared/services/article.service';
 import { ArticleType } from 'src/app/types/article.type';
+import { ArticlesType } from 'src/app/types/articles.type';
 import { ServiceType } from 'src/app/types/service.type';
 
 @Component({
@@ -70,40 +72,14 @@ export class MainComponent implements OnInit {
     },
   ];
 
-  public articles: ArticleType[] = [
-    {
-      id: '63ca02683fe296dbe1e873e2',
-      title: '6 сайтов для повышения  продуктивности',
-      description:
-        'Хотите проводить время в сети с пользой? Наша подборка из шести полезных, но малоизвестных сайтов увеличит вашу продуктивность, поможет успевать больше в течение дня и всегда быть на шаг впереди!',
-      image: 'image1.jpg',
-      date: '2023-01-20T02:54:32.543Z',
-      category: 'Фриланс',
-      url: '6_saitov_dlya_povisheniya__produktivnosti',
-    },
-    {
-      id: '63ca02683fe296dbe1e873e3',
-      title: 'Как произвести впечатление на нового клиента?',
-      description:
-        'Поиск новых клиентов — это сложная задача не только для новичков, но и для опытных специалистов. Мы расскажем, как справиться с волнением, завоевать доверие клиента и произвести на него потрясающее первое впечатление.',
-      image: 'image2.jpg',
-      date: '2023-01-20T02:54:32.543Z',
-      category: 'Таргет',
-      url: 'kak_proizvesti_vpechatlenie_na_novogo_klienta?',
-    },
-    {
-      id: '63ca02683fe296dbe1e873e4',
-      title: 'Как бороться с конкуренцией на фрилансе?',
-      description:
-        'Конкуренция — это часть нашей жизни. Мы боремся за место работы, за победу на конкурсе и даже за возможность купить последний круассан в любимом кафе. Фриланс не исключение.',
-      image: 'image3.jpg',
-      date: '2023-01-20T02:54:32.543Z',
-      category: 'Фриланс',
-      url: 'kak_borotsya_s_konkurentsiei_na_frilanse?',
-    },
-  ];
+  public articles: ArticleType[] = [];
 
-  constructor() {}
+  constructor(private articleService: ArticleService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.articleService.getTopArticles().subscribe((data: ArticleType[]) => {
+      this.articles = data;
+      console.log(data);
+    });
+  }
 }
