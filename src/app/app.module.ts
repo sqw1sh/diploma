@@ -13,6 +13,7 @@ import { ServiceCardComponent } from './shared/components/service-card/service-c
 import { ArticleCardComponent } from './shared/components/article-card/article-card.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,6 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
     FooterComponent,
     MainComponent,
     ServiceCardComponent,
-    ArticleCardComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +31,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
     BrowserAnimationsModule,
     CarouselModule,
     HttpClientModule,
+    SharedModule,
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2000 } },
