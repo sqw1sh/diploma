@@ -1,20 +1,63 @@
 <section class="page-form page-login">
   <div class="container">
-    <form class="form form-login">
+    <form class="form form-login" [formGroup]="formLogin">
       <div class="form-title">Войти в личный кабинет</div>
       <div class="form-control">
-        <input type="email" class="input" placeholder="Электронная почта" />
+        <input
+          type="email"
+          class="input"
+          placeholder="Электронная почта"
+          formControlName="email"
+          [ngStyle]="{
+            'border-color':
+              email?.invalid && (email?.touched || email?.dirty) ? 'red' : ''
+          }"
+        />
+        <p
+          class="input-error"
+          *ngIf="email?.invalid && (email?.touched || email?.dirty)"
+        >
+          <span *ngIf="email?.getError('required')"
+            >Необходимо заполнить поле</span
+          >
+        </p>
       </div>
       <div class="form-control">
-        <input type="password" class="input" placeholder="Пароль" />
+        <input
+          type="password"
+          class="input"
+          placeholder="Пароль"
+          formControlName="password"
+          [ngStyle]="{
+            'border-color':
+              password?.invalid && (password?.touched || password?.dirty)
+                ? 'red'
+                : ''
+          }"
+        />
+        <p
+          class="input-error"
+          *ngIf="password?.invalid && (password?.touched || password?.dirty)"
+        >
+          <span *ngIf="password?.getError('required')"
+            >Необходимо заполнить поле</span
+          >
+        </p>
       </div>
       <div class="input-checkbox">
-        <input type="checkbox" id="agree" />
+        <input type="checkbox" id="agree" formControlName="rememberMe" />
         <label for="agree">
           <p>Запомнить меня</p>
         </label>
       </div>
-      <button class="btn btn-big">Войти</button>
+      <button
+        class="btn btn-big"
+        type="button"
+        [disabled]="formLogin.invalid"
+        (click)="login()"
+      >
+        Войти
+      </button>
       <div class="form-extra">
         <span
           >Нет аккаунта?
@@ -25,7 +68,7 @@
       </div>
     </form>
     <div class="form-image">
-      <img src="assets/images/auth/auth-2.jpg" alt="Регистрация" />
+      <img src="assets/images/auth/auth-2.jpg" alt="Авторизация" />
     </div>
   </div>
 </section>

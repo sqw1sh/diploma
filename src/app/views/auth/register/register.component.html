@@ -1,18 +1,75 @@
 <section class="page-form page-register">
   <div class="container">
-    <form class="form form-register">
+    <form class="form form-register" [formGroup]="formRegister">
       <div class="form-title">Регистрация на сайте</div>
       <div class="form-control">
-        <input type="text" class="input" placeholder="Ваше имя" />
+        <input
+          type="text"
+          class="input"
+          placeholder="Ваше имя"
+          formControlName="name"
+          [ngStyle]="{
+            'border-color':
+              name?.invalid && (name?.touched || name?.dirty) ? 'red' : ''
+          }"
+        />
+        <p
+          class="input-error"
+          *ngIf="name?.invalid && (name?.touched || name?.dirty)"
+        >
+          <span *ngIf="name?.getError('required')"
+            >Необходимо заполнить поле</span
+          >
+          <span *ngIf="name?.getError('pattern')"
+            >Имя должно быть на русском и содержать заглавную букву</span
+          >
+        </p>
       </div>
       <div class="form-control">
-        <input type="email" class="input" placeholder="Электронная почта" />
+        <input
+          type="email"
+          class="input"
+          placeholder="Электронная почта"
+          formControlName="email"
+          [ngStyle]="{
+            'border-color':
+              email?.invalid && (email?.touched || email?.dirty) ? 'red' : ''
+          }"
+        />
+        <p
+          class="input-error"
+          *ngIf="email?.invalid && (email?.touched || email?.dirty)"
+        >
+          <span *ngIf="email?.getError('required')"
+            >Необходимо заполнить поле</span
+          >
+          <span *ngIf="email?.getError('email')"
+            >Почта должно соответствовать формату: ivan@mail.com</span
+          >
+        </p>
       </div>
       <div class="form-control">
-        <input type="password" class="input" placeholder="Пароль" />
+        <input
+          type="password"
+          class="input"
+          placeholder="Пароль"
+          formControlName="password"
+        />
+        <p
+          class="input-error"
+          *ngIf="password?.invalid && (password?.touched || password?.dirty)"
+        >
+          <span *ngIf="password?.getError('required')"
+            >Необходимо заполнить поле</span
+          >
+          <span *ngIf="password?.getError('pattern')"
+            >Пароль должен состоять из букв, цифр, спец. символов, заглавных и
+            не менее 8 символов</span
+          >
+        </p>
       </div>
       <div class="input-checkbox">
-        <input type="checkbox" id="agree" />
+        <input type="checkbox" id="agree" formControlName="agree" />
         <label for="agree">
           <p>
             <span>Я принимаю </span>
@@ -23,7 +80,14 @@
           </p>
         </label>
       </div>
-      <button class="btn btn-big">Зарегистрироваться</button>
+      <button
+        class="btn btn-big"
+        type="button"
+        [disabled]="formRegister.invalid"
+        (click)="register()"
+      >
+        Зарегистрироваться
+      </button>
       <div class="form-extra">
         <span
           >Уже есть аккаунт?

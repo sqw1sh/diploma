@@ -16,6 +16,13 @@
 
       .form-control {
         margin-bottom: 5px;
+        position: relative;
+
+        .input-error {
+          margin-top: 5px;
+          width: 422px;
+          @include text(14px, 400, red);
+        }
 
         &:last-child {
           margin-bottom: 10px;

@@ -33,7 +33,7 @@
         <a
           [routerLink]="['/login']"
           routerLinkActive="router-link-active"
-          *ngIf="true"
+          *ngIf="!isLogged"
         >
           <svg
             width="24"
@@ -66,7 +66,7 @@
           </svg>
           <span>Войти</span>
         </a>
-        <p *ngIf="false">
+        <p *ngIf="isLogged">
           <svg
             width="24"
             height="24"
@@ -96,7 +96,7 @@
               stroke-linejoin="round"
             />
           </svg>
-          <span>Привет, Роман!</span>
+          <span>Привет, {{ user?.name }}!</span>
         </p>
       </div>
     </div>

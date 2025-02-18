@@ -27,6 +27,11 @@ a {
   border: 0;
   cursor: pointer;
 
+  &:disabled {
+    background-color: $light-gray-color;
+    cursor: not-allowed;
+  }
+
   &.btn-big {
     width: 422px;
     height: 51px;
