@@ -3,9 +3,13 @@
     <div class="articles-title">Блог</div>
     <div class="articles-header">
       <div class="applied-filters">
-        <div class="applied-filter">
-          <span>Дизайн</span>
+        <div
+          class="applied-filter"
+          *ngFor="let appliedFilter of appliedFilters"
+        >
+          <span>{{ appliedFilter.name }}</span>
           <svg
+            (click)="removeAppliedFilter(appliedFilter)"
             width="16"
             height="17"
             viewBox="0 0 16 17"
@@ -44,11 +48,7 @@
         </div>
       </div>
       <div class="filter-select" [class.open]="isFilterMenuOpen">
-        <a
-          class="filter-select-header"
-          (click)="changeFilterMenuCondition()"
-          (blur)="isFilterMenuOpen = false"
-        >
+        <a class="filter-select-header" (click)="changeFilterMenuCondition()">
           <span>Фильтр</span>
           <svg
             *ngIf="true"
@@ -78,25 +78,14 @@
           </svg>
         </a>
         <div class="filter-select-menu">
-          <div class="filter-select-menu-item">
-            <span>Фриланс</span>
-            <span>+</span>
-          </div>
-          <div class="filter-select-menu-item active">
-            <span>Дизайн</span>
-            <span>-</span>
-          </div>
-          <div class="filter-select-menu-item">
-            <span>SMM</span>
-            <span>+</span>
-          </div>
-          <div class="filter-select-menu-item">
-            <span>Таргет</span>
-            <span>+</span>
-          </div>
-          <div class="filter-select-menu-item">
-            <span>Копирайтинг</span>
-            <span>+</span>
+          <div
+            class="filter-select-menu-item"
+            [class.active]="categoryIsActive(category.url)"
+            *ngFor="let category of categories"
+            (click)="applyCategory(category.url)"
+          >
+            <span>{{ category.name }}</span>
+            <span>{{ categoryIsActive(category.url) ? "-" : "+" }}</span>
           </div>
         </div>
       </div>
@@ -110,9 +99,10 @@
     <div class="articles-pagination" *ngIf="articles?.pages">
       <div
         class="pagination-prev"
+        (click)="openPage(+activeParams.page - 1)"
         [ngStyle]="{
-          opacity: currentPage === 1 ? '0.3' : '1',
-          cursor: currentPage === 1 ? 'not-allowed' : 'pointer'
+          opacity: +activeParams.page === 1 ? '0.3' : '1',
+          cursor: +activeParams.page === 1 ? 'not-allowed' : 'pointer'
         }"
       >
         <img src="assets/images/icons/arrow-prev-2.png" alt="Стрелка" />
@@ -121,15 +111,18 @@
         <span
           class="pagination-number"
           *ngFor="let page of pages"
-          [class.active]="page === currentPage"
+          (click)="openPage(page)"
+          [class.active]="page === +activeParams.page"
           >{{ page }}</span
         >
       </div>
       <div
         class="pagination-next"
+        (click)="openPage(+activeParams.page + 1)"
         [ngStyle]="{
-          opacity: currentPage === pages.length ? '0.3' : '1',
-          cursor: currentPage === pages.length ? 'not-allowed' : 'pointer'
+          opacity: +activeParams.page === pages.length ? '0.3' : '1',
+          cursor:
+            +activeParams.page === pages.length ? 'not-allowed' : 'pointer'
         }"
       >
         <img src="assets/images/icons/arrow-next-2.png" alt="Стрелка" />

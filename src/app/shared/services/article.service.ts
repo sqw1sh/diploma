@@ -6,6 +6,7 @@ import { environment } from 'src/environments/environment';
 import { ArticlesType } from 'src/app/types/articles.type';
 import { DetailArticleType } from 'src/app/types/detail-article.type';
 import { CategoryType } from 'src/app/types/category.type';
+import { ActiveParamsType } from 'src/app/types/active-params.type';
 
 @Injectable({
   providedIn: 'root',
@@ -17,22 +18,9 @@ export class ArticleService {
     return this.http.get<ArticleType[]>(environment.api + 'articles/top');
   }
 
-  public getArticles(
-    page?: number,
-    categories?: string[]
-  ): Observable<ArticlesType> {
-    let params: any = {};
-
-    if (page) {
-      params.page = page;
-    }
-
-    if (categories) {
-      params.categories = categories;
-    }
-
+  public getArticles(activeParams: ActiveParamsType): Observable<ArticlesType> {
     return this.http.get<ArticlesType>(environment.api + 'articles', {
-      params,
+      params: activeParams,
     });
   }
 
@@ -48,7 +36,7 @@ export class ArticleService {
     );
   }
 
-  public getCategories(): Observable<CategoryType> {
-    return this.http.get<CategoryType>(environment.api + 'categories');
+  public getCategories(): Observable<CategoryType[]> {
+    return this.http.get<CategoryType[]>(environment.api + 'categories');
   }
 }
