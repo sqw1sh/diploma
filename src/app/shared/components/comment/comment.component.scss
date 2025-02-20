@@ -1,0 +1,39 @@
+@import "../../../../assets/styles/variables";
+@import "../../../../assets/styles/mixins";
+
+.comment {
+  max-width: 854px;
+
+  .comment-header {
+    @include flex(start, start);
+    gap: 26px;
+    margin-bottom: 15px;
+
+    .comment-header-info {
+      .comment-header-info-name {
+        @include text(18px, 600, $light-blue-color);
+        margin-bottom: 10px;
+      }
+
+      .comment-header-info-date {
+        @include text(14px, 600, $light-gray-color);
+      }
+    }
+  }
+
+  .comment-text {
+    @include text(14px);
+    margin-bottom: 40px;
+  }
+
+  .comment-actions {
+    @include flex(center, start);
+    gap: 15px;
+
+    .action-item {
+      @include text(14px, 600);
+      @include flex();
+      gap: 3px;
+    }
+  }
+}

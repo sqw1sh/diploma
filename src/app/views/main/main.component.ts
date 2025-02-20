@@ -79,7 +79,6 @@ export class MainComponent implements OnInit {
   ngOnInit(): void {
     this.articleService.getTopArticles().subscribe((data: ArticleType[]) => {
       this.articles = data;
-      console.log(data);
     });
   }
 }

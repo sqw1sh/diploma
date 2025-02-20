@@ -49,12 +49,10 @@ export class AuthService {
     );
   }
 
-  public refresh(
-    refreshToken: string
-  ): Observable<AuthType | DefaultResponseType> {
+  public refresh(): Observable<AuthType | DefaultResponseType> {
     return this.http.post<AuthType | DefaultResponseType>(
       environment.api + 'refresh',
-      { refreshToken }
+      { refreshToken: this.getTokens().refreshToken }
     );
   }
 

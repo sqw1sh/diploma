@@ -108,6 +108,36 @@
     </div>
     <div class="article-comments">
       <div class="article-comments-title">Комментарии к статье</div>
+      <div class="article-comments-logged" *ngIf="!isLogged">
+        <span>Чтобы оставлять комментарии, </span>
+        <a [routerLink]="['/login']" routerLinkActive="router-link-active"
+          >войдите
+        </a>
+        <span>или </span>
+        <a [routerLink]="['/register']" routerLinkActive="router-link-active"
+          >зарегистрируйтесь</a
+        >
+        <span>.</span>
+      </div>
+      <div class="article-comments-input" *ngIf="isLogged">
+        <p class="article-comments-empty" *ngIf="comments?.allCount === 0">
+          Будьте первым, кто оставит свой комментарий к статье!
+        </p>
+        <textarea
+          class="input"
+          placeholder="Напишите Ваш комментарий к статье..."
+          [(ngModel)]="commentInput"
+        ></textarea>
+        <button class="btn btn-big" (click)="addComment()">
+          Опубликовать комментарий
+        </button>
+      </div>
+      <div class="article-comments-items" *ngIf="comments">
+        <comment
+          *ngFor="let comment of comments.comments"
+          [comment]="comment"
+        ></comment>
+      </div>
     </div>
   </div>
 </section>

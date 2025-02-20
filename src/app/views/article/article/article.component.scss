@@ -80,7 +80,42 @@
     .article-comments {
       .article-comments-title {
         @include title();
-        margin-bottom: 20px;
+      }
+
+      .article-comments-logged {
+        @include text(14px);
+        margin-top: 20px;
+        margin-bottom: 60px;
+
+        a {
+          color: $light-blue-color;
+        }
+      }
+
+      .article-comments-input {
+        .article-comments-empty {
+          margin-top: 20px;
+          @include text(14px);
+        }
+
+        .input {
+          width: 818px;
+          max-width: 1240px;
+          height: 248px;
+          max-height: 300px;
+          margin-top: 40px;
+          margin-bottom: 20px;
+        }
+
+        .btn {
+          margin-bottom: 60px;
+        }
+      }
+
+      .article-comments-items {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
       }
     }
   }
