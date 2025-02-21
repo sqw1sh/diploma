@@ -12,9 +12,10 @@
   </div>
   <div class="comment-text">{{ comment.text }}</div>
   <div class="comment-actions">
-    <div class="action-item">
+    <div class="action-item" [class.active]="action === actionsType.like">
       <span>{{ comment.likesCount }}</span>
       <svg
+        (click)="applyAction(actionsType.like)"
         width="24"
         height="24"
         viewBox="0 0 24 24"
@@ -36,9 +37,10 @@
         />
       </svg>
     </div>
-    <div class="action-item">
+    <div class="action-item" [class.active]="action === actionsType.dislike">
       <span>{{ comment.dislikesCount }}</span>
       <svg
+        (click)="applyAction(actionsType.dislike)"
         width="24"
         height="24"
         viewBox="0 0 24 24"
@@ -60,8 +62,9 @@
         />
       </svg>
     </div>
-    <div class="action-item">
+    <div class="action-item" [class.active]="action === actionsType.violate">
       <svg
+        (click)="applyAction(actionsType.violate)"
         width="24"
         height="24"
         viewBox="0 0 24 24"

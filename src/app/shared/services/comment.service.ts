@@ -59,8 +59,8 @@ export class CommentService {
     );
   }
 
-  public getActionsForComment(id: string): Observable<DefaultResponseType> {
-    return this.http.get<DefaultResponseType>(
+  public getActionsForComment(id: string): Observable<ActionsType[]> {
+    return this.http.get<ActionsType[]>(
       environment.api + 'comments/' + id + '/actions',
       {
         headers: {

@@ -34,6 +34,20 @@
       @include text(14px, 600);
       @include flex();
       gap: 3px;
+
+      &.active {
+        color: $light-blue-color;
+
+        svg {
+          path {
+            stroke: $light-blue-color;
+          }
+        }
+      }
+
+      svg {
+        cursor: pointer;
+      }
     }
   }
 }

@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
       '',
       [
         Validators.required,
-        Validators.pattern(/^[А-Я]{1}[а-я]+(\s[А-Я]{1}[а-я]+){0,}$/g),
+        Validators.pattern(/^[А-Я][а-я]+\s{0,1}([А-Я][а-я]+\s{0,1}?){0,}$/),
       ],
     ],
     email: ['', [Validators.required, Validators.email]],

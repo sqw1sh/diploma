@@ -24,6 +24,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isLoggedSubscribe$ = this.authService.isLogged$.subscribe(
       (data: boolean) => {
         this.isLogged = data;
+
+        if (data) {
+          this.getUserInfoSubscribe$ = this.authService
+            .getUserInfo()
+            .subscribe((data: UserType | DefaultResponseType) => {
+              let defaultResponse = data as DefaultResponseType;
+
+              if (defaultResponse.error) {
+                throw new Error(defaultResponse.message);
+              }
+
+              let userReponse = data as UserType;
+
+              if (!userReponse.id || !userReponse.name || !userReponse.email) {
+                throw new Error(
+                  'Произошла ошибка запроса получения данных пользователя'
+                );
+              }
+
+              this.user = userReponse;
+            });
+        }
       }
     );
 
