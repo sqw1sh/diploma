@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/core/auth/auth.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { CommentService } from 'src/app/shared/services/comment.service';
 import { ArticleType } from 'src/app/types/article.type';
+import { CommentType } from 'src/app/types/comment.type';
 import { CommentsType } from 'src/app/types/comments.type';
 import { DefaultResponseType } from 'src/app/types/default-response.type';
 import { DetailArticleType } from 'src/app/types/detail-article.type';
@@ -19,7 +20,8 @@ export class ArticleComponent implements OnInit {
   public articles: ArticleType[] = [];
   public serverPublicPath = environment.serverPublicPath;
   public isLogged: boolean = false;
-  public comments: CommentsType | null = null;
+  public comments: CommentType[] = [];
+  public commentsCount: number = 0;
   public commentInput: string = '';
 
   constructor(
@@ -54,13 +56,17 @@ export class ArticleComponent implements OnInit {
     });
   }
 
-  private processComment(offset: number): void {
-    this.comments = null;
-
+  public processComment(offset: number): void {
     this.commentService
       .getComments(offset, this.article.id)
       .subscribe((commentsData: CommentsType) => {
-        this.comments = commentsData;
+        this.commentsCount = commentsData.allCount;
+
+        if (this.comments.length === 0) {
+          this.comments = commentsData.comments;
+        } else {
+          this.comments = [...this.comments, ...commentsData.comments];
+        }
       });
   }
 

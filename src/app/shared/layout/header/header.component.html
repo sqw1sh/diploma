@@ -66,7 +66,7 @@
           </svg>
           <span>Войти</span>
         </a>
-        <p *ngIf="isLogged">
+        <p *ngIf="isLogged" (click)="toggleProfileSelect()">
           <svg
             width="24"
             height="24"
@@ -98,6 +98,9 @@
           </svg>
           <span>Привет, {{ user?.name }}!</span>
         </p>
+        <div class="profile-select" *ngIf="profileSelect">
+          <p (click)="logout()">Выйти</p>
+        </div>
       </div>
     </div>
   </div>

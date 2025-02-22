@@ -56,9 +56,9 @@ export class AuthService {
     );
   }
 
-  public logout(refreshToken: string): Observable<DefaultResponseType> {
+  public logout(): Observable<DefaultResponseType> {
     return this.http.post<DefaultResponseType>(environment.api + 'logout', {
-      refreshToken,
+      refreshToken: this.getTokens().refreshToken,
     });
   }
 

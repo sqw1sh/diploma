@@ -117,6 +117,14 @@
         flex-direction: column;
         gap: 40px;
       }
+
+      .article-comments-load {
+        @include flex(center, start);
+        gap: 10px;
+        margin-top: 60px;
+        cursor: pointer;
+        @include text(20px, 500, $light-blue-color);
+      }
     }
   }
 }

@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private getUserInfoSubscribe$: Subscription | null = null;
   public user: UserType | null = null;
   public isLogged: boolean = false;
+  public profileSelect: boolean = false;
 
   constructor(private router: Router, private authService: AuthService) {}
 
@@ -74,6 +75,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public navigate(fragment: string): void {
     this.router.navigate(['/'], { fragment: fragment });
+  }
+
+  public toggleProfileSelect(): void {
+    this.profileSelect = !this.profileSelect;
+  }
+
+  public logout(): void {
+    if (this.isLogged) {
+      this.authService.logout().subscribe((data: DefaultResponseType) => {
+        if (data.error) {
+          throw new Error(data.message);
+        }
+
+        this.profileSelect = false;
+        this.authService.removeTokens();
+        this.router.navigate(['/']);
+      });
+    }
   }
 
   ngOnDestroy(): void {
