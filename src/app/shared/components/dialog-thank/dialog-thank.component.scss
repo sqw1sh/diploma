@@ -1,0 +1,14 @@
+@import "../../../../assets/styles/modal";
+
+.modal {
+  position: unset;
+}
+
+.btn {
+  font-size: 12px;
+  font-weight: 500;
+
+  &.btn-small {
+    width: 73px;
+  }
+}

@@ -6,6 +6,8 @@
   <p class="service-card-description">{{ service.description }}</p>
   <div class="service-card-extra">
     <span class="service-card-price">От {{ service.price }}₽</span>
-    <button class="btn btn-small">Подробнее</button>
+    <button class="btn btn-small" (click)="openDialog(service.title)">
+      Подробнее
+    </button>
   </div>
 </div>

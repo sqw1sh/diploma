@@ -11,9 +11,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ServiceCardComponent } from './shared/components/service-card/service-card.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import {
+  MAT_SNACK_BAR_DEFAULT_OPTIONS,
+  MatSnackBarModule,
+} from '@angular/material/snack-bar';
 import { SharedModule } from './shared/shared.module';
 import { AuthInterceptor } from './core/auth/auth.interceptor';
+import { DialogOrderComponent } from './shared/components/dialog-order/dialog-order.component';
+import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import {
+  MAT_DIALOG_DEFAULT_OPTIONS,
+  MatDialogModule,
+} from '@angular/material/dialog';
+import { DialogThankComponent } from './shared/components/dialog-thank/dialog-thank.component';
+import { DialogConsultationComponent } from './shared/components/dialog-consultation/dialog-consultation.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +35,9 @@ import { AuthInterceptor } from './core/auth/auth.interceptor';
     FooterComponent,
     MainComponent,
     ServiceCardComponent,
+    DialogOrderComponent,
+    DialogThankComponent,
+    DialogConsultationComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,10 +47,15 @@ import { AuthInterceptor } from './core/auth/auth.interceptor';
     CarouselModule,
     HttpClientModule,
     SharedModule,
+    MatDialogModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2000 } },
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true } },
   ],
   bootstrap: [AppComponent],
 })

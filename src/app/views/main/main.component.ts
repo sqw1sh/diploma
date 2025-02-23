@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { ArticleType } from 'src/app/types/article.type';
-import { ArticlesType } from 'src/app/types/articles.type';
 import { ServiceType } from 'src/app/types/service.type';
 
 @Component({

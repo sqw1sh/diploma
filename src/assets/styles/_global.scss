@@ -45,6 +45,21 @@ a {
   }
 }
 
+select::-ms-expand {
+  display: none;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  color: $light-blue-color;
+
+  option {
+    color: $light-blue-color !important;
+  }
+}
+
 .input {
   background-color: $white-color;
   border-radius: 3px;
@@ -172,3 +187,24 @@ h6 {
 .article-text b {
   font-weight: 500;
 }
+
+.mat-dialog-container {
+  padding: 0 !important;
+  border-radius: 10px !important;
+}
+
+// .mat-form-field {
+//   width: 422px;
+//   height: 57px;
+//   @include text(14px, 400, $light-blue-color);
+// }
+
+// .mat-form-field-wrapper {
+//   padding: 0;
+// }
+
+// .mat-form-field-appearance-fill,
+// .mat-form-field-flex {
+//   display: unset !important;
+//   padding: 20px 64px 20px 20px !important;
+// }

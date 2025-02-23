@@ -1,0 +1,110 @@
+<div class="modal modal-order">
+  <div class="modal-title" mat-dialog-title>Заявка на услугу</div>
+  <div class="modal-body form" [formGroup]="orderForm" mat-dialog-content>
+    <div class="form-control">
+      <select
+        type="text"
+        class="input"
+        formControlName="service"
+        [ngStyle]="{
+          'border-color':
+            service?.invalid && (service?.dirty || service?.touched)
+              ? 'red'
+              : '',
+          color:
+            service?.invalid && (service?.dirty || service?.touched)
+              ? 'red'
+              : ''
+        }"
+      >
+        <option value="">Выберите услугу</option>
+        <option value="Создание сайтов">Создание сайтов</option>
+        <option value="Продвижение">Продвижение</option>
+        <option value="Реклама">Реклама</option>
+        <option value="Копирайтинг">Копирайтинг</option>
+      </select>
+      <p
+        class="input-error"
+        *ngIf="service?.invalid && (service?.dirty || service?.touched)"
+      >
+        <span *ngIf="service?.hasError('required')"
+          >Необходимо выбрать услугу</span
+        >
+      </p>
+    </div>
+    <div class="form-control">
+      <input
+        type="text"
+        class="input"
+        placeholder="Ваше имя"
+        formControlName="name"
+        [ngStyle]="{
+          'border-color':
+            name?.invalid && (name?.dirty || name?.touched) ? 'red' : ''
+        }"
+      />
+      <p
+        class="input-error"
+        *ngIf="name?.invalid && (name?.dirty || name?.touched)"
+      >
+        <span *ngIf="name?.hasError('required')"
+          >Необходимо заполнить поле</span
+        >
+      </p>
+    </div>
+    <div class="form-control">
+      <input
+        type="text"
+        class="input"
+        placeholder="Ваш номер телефона"
+        formControlName="phone"
+        [ngStyle]="{
+          'border-color':
+            phone?.invalid && (phone?.dirty || phone?.touched) ? 'red' : ''
+        }"
+      />
+      <p
+        class="input-error"
+        *ngIf="phone?.invalid && (phone?.dirty || phone?.touched)"
+      >
+        <span *ngIf="phone?.hasError('required')"
+          >Необходимо заполнить поле</span
+        >
+      </p>
+    </div>
+    <button
+      class="btn btn-big"
+      type="button"
+      [disabled]="orderForm.invalid"
+      (click)="addRequest()"
+    >
+      Оставить заявку
+    </button>
+  </div>
+  <div class="modal-close" mat-dialog-close>
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 14 14"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <line
+        x1="0.935622"
+        y1="0.649994"
+        x2="12.9564"
+        y2="12.6708"
+        stroke="#BEBEBE"
+        stroke-linecap="round"
+      />
+      <line
+        x1="12.9236"
+        y1="0.629775"
+        x2="0.902769"
+        y2="12.6506"
+        stroke="#BEBEBE"
+        stroke-linecap="round"
+      />
+    </svg>
+  </div>
+</div>

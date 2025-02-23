@@ -1,0 +1,8 @@
+@import "../../../../assets/styles/modal";
+
+.input-error {
+  margin: 5px auto 0 auto;
+  width: 422px;
+  @include text(14px, 400, red);
+  text-align: left;
+}

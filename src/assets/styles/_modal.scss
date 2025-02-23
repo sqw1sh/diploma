@@ -1,0 +1,44 @@
+@import "./variables";
+@import "./mixins";
+
+.modal {
+  // max-width: 443px;
+  // margin: 0 auto;
+  padding: 94px 142px;
+  position: relative;
+  text-align: center;
+
+  .modal-title {
+    @include title();
+    margin-bottom: 20px;
+  }
+
+  .modal-body {
+    .modal-body-text {
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      &:not(:last-child) {
+        margin-bottom: 5px;
+      }
+    }
+
+    .btn {
+      margin: 20px auto 0 auto;
+    }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    cursor: pointer;
+  }
+}
+
+.modal-wrapper {
+  position: relative;
+  height: 100%;
+  @include flex();
+}
