@@ -5,6 +5,8 @@ import { CommentService } from '../../services/comment.service';
 import { ActionType } from 'src/app/types/action.type';
 import { DefaultResponseType } from 'src/app/types/default-response.type';
 import { ActionsType } from 'src/app/types/actions.type';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'comment',
@@ -18,7 +20,8 @@ export class CommentComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -29,40 +32,53 @@ export class CommentComponent implements OnInit {
     if (this.authService.isLogged) {
       this.commentService
         .applyActionForComment(action, this.comment.id)
-        .subscribe((data: DefaultResponseType) => {
-          if (data.error) {
-            throw new Error(data.message);
-          }
-
-          if (this.action === null) {
-            if (action === ActionType.like) {
-              this.comment.likesCount++;
-            } else if (action === ActionType.dislike) {
-              this.comment.dislikesCount++;
+        .subscribe({
+          next: (data: DefaultResponseType) => {
+            if (data.error) {
+              this._snackBar.open('Жалоба уже отправлена');
+              throw new Error(data.message);
             }
-          }
 
-          if (this.action && action !== ActionType.violate) {
-            if (action === ActionType.like) {
-              if (this.action === action) {
-                this.comment.likesCount--;
-                this.action = null;
-              } else {
-                this.comment.dislikesCount--;
+            if (this.action === null) {
+              if (action === ActionType.like) {
+                this._snackBar.open('Ваш голос учтен');
                 this.comment.likesCount++;
-              }
-            } else if (action === ActionType.dislike) {
-              if (this.action === action) {
-                this.comment.dislikesCount--;
-                this.action = null;
-              } else {
-                this.comment.likesCount--;
+              } else if (action === ActionType.dislike) {
+                this._snackBar.open('Ваш голос учтен');
                 this.comment.dislikesCount++;
+              } else if (action === ActionType.violate) {
+                this._snackBar.open('Жалоба отправлена');
               }
             }
-          }
 
-          this.processActions();
+            if (this.action && action !== ActionType.violate) {
+              if (action === ActionType.like) {
+                if (this.action === action) {
+                  this.comment.likesCount--;
+                  this.action = null;
+                } else {
+                  this.comment.dislikesCount--;
+                  this.comment.likesCount++;
+                }
+              } else if (action === ActionType.dislike) {
+                if (this.action === action) {
+                  this.comment.dislikesCount--;
+                  this.action = null;
+                } else {
+                  this.comment.likesCount--;
+                  this.comment.dislikesCount++;
+                }
+              }
+            }
+
+            this.processActions();
+          },
+          error: (errorResponse: HttpErrorResponse) => {
+            if (errorResponse.error.error) {
+              this._snackBar.open('Жалоба уже отправлена');
+              throw new Error(errorResponse.error.message);
+            }
+          },
         });
     }
   }

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from './shared/layout/layout.component';
 import { MainComponent } from './views/main/main.component';
 import { AuthForwardGuard } from './core/auth/auth-forward.guard';
+import { PolicyComponent } from './views/policy/policy.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,7 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       { path: '', component: MainComponent },
+      { path: 'policy', component: PolicyComponent },
       {
         path: '',
         loadChildren: () =>
@@ -32,7 +34,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    RouterModule.forRoot(routes, {
+      anchorScrolling: 'enabled',
+    }),
+  ],
   exports: [RouterModule],
 })
 export class AppRoutingModule {}

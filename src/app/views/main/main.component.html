@@ -22,7 +22,9 @@
             <div class="slide-text">
               Весь декабрь у нас действует акция на работу копирайтера.
             </div>
-            <button class="btn btn-small">Подробнее</button>
+            <button class="btn btn-small" (click)="openDialog('Копирайтинг')">
+              Подробнее
+            </button>
           </div>
         </ng-template>
         <ng-template carouselSlide>
@@ -36,7 +38,9 @@
               ><strong>-15%</strong>
               <span>!</span>
             </div>
-            <button class="btn btn-small">Подробнее</button>
+            <button class="btn btn-small" (click)="openDialog('Продвижение')">
+              Подробнее
+            </button>
           </div>
         </ng-template>
         <ng-template carouselSlide>
@@ -51,7 +55,9 @@
             <div class="slide-text">
               Мы благодарим каждого, кто голосовал за нас!
             </div>
-            <button class="btn btn-small">Подробнее</button>
+            <button class="btn btn-small" (click)="openDialog('Реклама')">
+              Подробнее
+            </button>
           </div>
         </ng-template>
       </owl-carousel-o>
@@ -259,7 +265,7 @@
         <div class="contact-item">
           <div class="contact-item-title">Мы в социальных сетях:</div>
           <div class="contact-item-socials">
-            <a>
+            <a href="https://vk.com/" target="_blank">
               <svg
                 width="30"
                 height="30"
@@ -280,7 +286,7 @@
                 </defs>
               </svg>
             </a>
-            <a>
+            <a href="https://facebook.com/" target="_blank">
               <svg
                 width="30"
                 height="30"
@@ -294,7 +300,7 @@
                 />
               </svg>
             </a>
-            <a>
+            <a href="https://www.instagram.com/" target="_blank">
               <svg
                 width="30"
                 height="30"

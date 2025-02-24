@@ -73,9 +73,19 @@
         <label for="agree">
           <p>
             <span>Я принимаю </span>
-            <a>условия пользовательского соглашения </a>
+            <a
+              [routerLink]="['/policy']"
+              routerLinkActive="router-link-active"
+              fragment="condition"
+              >условия пользовательского соглашения
+            </a>
             <span>и даю </span>
-            <a>согласие на обработку персональных данных</a>
+            <a
+              [routerLink]="['/policy']"
+              routerLinkActive="router-link-active"
+              fragment="approval"
+              >согласие на обработку персональных данных</a
+            >
             <span>.</span>
           </p>
         </label>

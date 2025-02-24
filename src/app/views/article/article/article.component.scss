@@ -125,6 +125,10 @@
         cursor: pointer;
         @include text(20px, 500, $light-blue-color);
       }
+
+      .article-comments-empty {
+        @include text(16px, 400, $light-blue-color);
+      }
     }
   }
 }

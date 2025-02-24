@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
@@ -28,7 +29,8 @@ export class ArticleComponent implements OnInit {
     private articleService: ArticleService,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    private commentService: CommentService
+    private commentService: CommentService,
+    private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {

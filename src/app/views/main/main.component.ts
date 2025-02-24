@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { DialogOrderComponent } from 'src/app/shared/components/dialog-order/dialog-order.component';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { ArticleType } from 'src/app/types/article.type';
 import { ServiceType } from 'src/app/types/service.type';
@@ -73,11 +75,23 @@ export class MainComponent implements OnInit {
 
   public articles: ArticleType[] = [];
 
-  constructor(private articleService: ArticleService) {}
+  constructor(
+    private articleService: ArticleService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
     this.articleService.getTopArticles().subscribe((data: ArticleType[]) => {
       this.articles = data;
+    });
+  }
+
+  public openDialog(service: string) {
+    this.dialog.open(DialogOrderComponent, {
+      width: '727px',
+      data: {
+        service: service,
+      },
     });
   }
 }

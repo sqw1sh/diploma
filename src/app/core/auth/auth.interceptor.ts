@@ -32,9 +32,14 @@ export class AuthInterceptor implements HttpInterceptor {
           if (
             error.status &&
             !newReq.url.includes('/login') &&
-            !newReq.url.includes('/refresh')
+            !newReq.url.includes('/refresh') &&
+            !newReq.url.includes('/comments')
           ) {
             return this.handle401Error(newReq, next);
+          }
+
+          if (error.status === 400 && newReq.url.includes('/comments')) {
+            return next.handle(req);
           }
 
           return throwError(() => error);
