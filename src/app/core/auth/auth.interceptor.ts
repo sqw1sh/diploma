@@ -5,21 +5,28 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, finalize, switchMap } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthType } from 'src/app/types/auth.type';
 import { DefaultResponseType } from 'src/app/types/default-response.type';
+import { LoaderService } from 'src/app/shared/services/loader.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private loaderService: LoaderService
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
+    this.loaderService.isLoad$.next(true);
+
     const tokens = this.authService.getTokens();
 
     if (tokens && tokens.accessToken) {
@@ -43,6 +50,9 @@ export class AuthInterceptor implements HttpInterceptor {
           }
 
           return throwError(() => error);
+        }),
+        finalize(() => {
+          this.loaderService.isLoad$.next(false);
         })
       );
     }
@@ -86,6 +96,9 @@ export class AuthInterceptor implements HttpInterceptor {
         this.authService.removeTokens();
         this.router.navigate(['/']);
         return throwError(() => error);
+      }),
+      finalize(() => {
+        this.loaderService.isLoad$.next(false);
       })
     );
   }

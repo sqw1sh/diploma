@@ -27,6 +27,7 @@ import {
 import { DialogThankComponent } from './shared/components/dialog-thank/dialog-thank.component';
 import { DialogConsultationComponent } from './shared/components/dialog-consultation/dialog-consultation.component';
 import { PolicyComponent } from './views/policy/policy.component';
+import { LoaderComponent } from './shared/components/loader/loader.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { PolicyComponent } from './views/policy/policy.component';
     DialogThankComponent,
     DialogConsultationComponent,
     PolicyComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
