@@ -1,49 +1,60 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { ActiveParamsType } from 'src/app/types/active-params.type';
 import { ArticlesType } from 'src/app/types/articles.type';
 import { AtiveParamsUtil } from '../../../shared/utils/active-params.util';
 import { CategoryType } from 'src/app/types/category.type';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-articles',
   templateUrl: './articles.component.html',
   styleUrls: ['./articles.component.scss'],
 })
-export class ArticlesComponent implements OnInit {
+export class ArticlesComponent implements OnInit, OnDestroy {
   public isFilterMenuOpen: boolean = false;
   public pages: number[] = [];
-  public activeParams!: ActiveParamsType;
+  public activeParams: ActiveParamsType;
   public articles: ArticlesType | null = null;
   public categories: CategoryType[] = [];
   public appliedFilters: CategoryType[] = [];
+
+  private getCategoriesSubscription$: Subscription | null = null;
+  private getArticlesSubscription$: Subscription | null = null;
 
   constructor(
     private articleService: ArticleService,
     private activatedRoute: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    this.activeParams = {
+      page: '',
+      categories: [],
+    };
+  }
 
   ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.activeParams = AtiveParamsUtil.process(params);
 
-      this.articleService.getCategories().subscribe((data: CategoryType[]) => {
-        this.categories = data;
+      this.getCategoriesSubscription$ = this.articleService
+        .getCategories()
+        .subscribe((data: CategoryType[]) => {
+          this.categories = data;
 
-        this.appliedFilters = [];
+          this.appliedFilters = [];
 
-        this.activeParams.categories?.forEach((category) => {
-          this.appliedFilters.push(
-            this.categories.find(
-              (item) => item.url === category
-            ) as CategoryType
-          );
+          this.activeParams.categories?.forEach((category) => {
+            this.appliedFilters.push(
+              this.categories.find(
+                (item) => item.url === category
+              ) as CategoryType
+            );
+          });
         });
-      });
 
-      this.articleService
+      this.getArticlesSubscription$ = this.articleService
         .getArticles(this.activeParams)
         .subscribe((data: ArticlesType) => {
           this.articles = data;
@@ -55,6 +66,11 @@ export class ArticlesComponent implements OnInit {
           }
         });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.getCategoriesSubscription$?.unsubscribe();
+    this.getArticlesSubscription$?.unsubscribe();
   }
 
   public changeFilterMenuCondition(): void {

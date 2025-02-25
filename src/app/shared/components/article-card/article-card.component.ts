@@ -10,9 +10,19 @@ import { environment } from 'src/environments/environment';
 export class ArticleCardComponent implements OnInit {
   public serverPublicPath: string = environment.serverPublicPath;
 
-  @Input() article!: ArticleType;
+  @Input() article: ArticleType;
 
-  constructor() {}
+  constructor() {
+    this.article = {
+      id: '',
+      title: '',
+      description: '',
+      image: '',
+      date: '',
+      category: '',
+      url: '',
+    };
+  }
 
   ngOnInit(): void {}
 }

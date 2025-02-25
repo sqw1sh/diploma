@@ -11,23 +11,25 @@ import { UserType } from 'src/app/types/user.type';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  private isLoggedSubscribe$: Subscription | null = null;
-  private getUserInfoSubscribe$: Subscription | null = null;
   public user: UserType | null = null;
   public isLogged: boolean = false;
   public profileSelect: boolean = false;
+
+  private isLoggedSubscribtion$: Subscription | null = null;
+  private getUserInfoSubscribtion$: Subscription | null = null;
+  private logoutSubscribtion$: Subscription | null = null;
 
   constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.isLogged = this.authService.isLogged;
 
-    this.isLoggedSubscribe$ = this.authService.isLogged$.subscribe(
+    this.isLoggedSubscribtion$ = this.authService.isLogged$.subscribe(
       (data: boolean) => {
         this.isLogged = data;
 
         if (data) {
-          this.getUserInfoSubscribe$ = this.authService
+          this.getUserInfoSubscribtion$ = this.authService
             .getUserInfo()
             .subscribe((data: UserType | DefaultResponseType) => {
               let defaultResponse = data as DefaultResponseType;
@@ -51,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
 
     if (this.isLogged) {
-      this.getUserInfoSubscribe$ = this.authService
+      this.getUserInfoSubscribtion$ = this.authService
         .getUserInfo()
         .subscribe((data: UserType | DefaultResponseType) => {
           let defaultResponse = data as DefaultResponseType;
@@ -73,6 +75,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngOnDestroy(): void {
+    this.isLoggedSubscribtion$?.unsubscribe();
+    this.getUserInfoSubscribtion$?.unsubscribe();
+    this.logoutSubscribtion$?.unsubscribe();
+  }
+
   public navigate(fragment: string): void {
     this.router.navigate(['/'], { fragment: fragment });
   }
@@ -83,20 +91,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public logout(): void {
     if (this.isLogged) {
-      this.authService.logout().subscribe((data: DefaultResponseType) => {
-        if (data.error) {
-          throw new Error(data.message);
-        }
+      this.logoutSubscribtion$ = this.authService
+        .logout()
+        .subscribe((data: DefaultResponseType) => {
+          if (data.error) {
+            throw new Error(data.message);
+          }
 
-        this.profileSelect = false;
-        this.authService.removeTokens();
-        this.router.navigate(['/']);
-      });
+          this.profileSelect = false;
+          this.authService.removeTokens();
+          this.router.navigate(['/']);
+        });
     }
-  }
-
-  ngOnDestroy(): void {
-    this.isLoggedSubscribe$?.unsubscribe();
-    this.getUserInfoSubscribe$?.unsubscribe();
   }
 }

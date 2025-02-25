@@ -1,21 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { RequestService } from '../../services/request.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DefaultResponseType } from 'src/app/types/default-response.type';
 import { DialogThankComponent } from '../dialog-thank/dialog-thank.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dialog-consultation',
   templateUrl: './dialog-consultation.component.html',
   styleUrls: ['./dialog-consultation.component.scss'],
 })
-export class DialogConsultationComponent implements OnInit {
+export class DialogConsultationComponent implements OnInit, OnDestroy {
   public consultationForm: FormGroup = this.fb.group({
     name: ['', Validators.required],
     phone: ['', Validators.required],
   });
+
+  private addRequestSubscription$: Subscription | null = null;
 
   constructor(
     private dialogRef: MatDialogRef<DialogConsultationComponent>,
@@ -26,6 +29,10 @@ export class DialogConsultationComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.addRequestSubscription$?.unsubscribe();
+  }
 
   get name() {
     return this.consultationForm.get('name');
@@ -38,7 +45,7 @@ export class DialogConsultationComponent implements OnInit {
   public addRequest(): void {
     if (this.consultationForm.valid) {
       if (this.name?.value && this.phone?.value) {
-        this.requestService
+        this.addRequestSubscription$ = this.requestService
           .addRequest(this.name.value, this.phone.value, 'consultation')
           .subscribe((data: DefaultResponseType) => {
             if (data.error) {

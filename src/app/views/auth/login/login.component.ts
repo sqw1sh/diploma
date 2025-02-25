@@ -1,8 +1,9 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { AuthType } from 'src/app/types/auth.type';
 import { DefaultResponseType } from 'src/app/types/default-response.type';
@@ -12,12 +13,14 @@ import { DefaultResponseType } from 'src/app/types/default-response.type';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   public formLogin: FormGroup = this.fb.group({
     email: ['', Validators.required],
     password: ['', Validators.required],
     rememberMe: [false],
   });
+
+  private loginSubscription$: Subscription | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -27,6 +30,10 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.loginSubscription$?.unsubscribe();
+  }
 
   get email() {
     return this.formLogin.get('email');
@@ -43,7 +50,7 @@ export class LoginComponent implements OnInit {
   public login(): void {
     if (this.formLogin.valid) {
       if ((this.email?.value, this.password?.value)) {
-        this.authService
+        this.loginSubscription$ = this.authService
           .login(
             this.email?.value,
             this.password?.value,

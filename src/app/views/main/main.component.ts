@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { Subscription } from 'rxjs';
 import { DialogOrderComponent } from 'src/app/shared/components/dialog-order/dialog-order.component';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { ArticleType } from 'src/app/types/article.type';
@@ -11,7 +12,7 @@ import { ServiceType } from 'src/app/types/service.type';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.scss'],
 })
-export class MainComponent implements OnInit {
+export class MainComponent implements OnInit, OnDestroy {
   public mainSliderOptions: OwlOptions = {
     loop: true,
     mouseDrag: false,
@@ -75,15 +76,23 @@ export class MainComponent implements OnInit {
 
   public articles: ArticleType[] = [];
 
+  private getTopArticlesSubscription$: Subscription | null = null;
+
   constructor(
     private articleService: ArticleService,
     private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
-    this.articleService.getTopArticles().subscribe((data: ArticleType[]) => {
-      this.articles = data;
-    });
+    this.getTopArticlesSubscription$ = this.articleService
+      .getTopArticles()
+      .subscribe((data: ArticleType[]) => {
+        this.articles = data;
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.getTopArticlesSubscription$?.unsubscribe();
   }
 
   public openDialog(service: string) {

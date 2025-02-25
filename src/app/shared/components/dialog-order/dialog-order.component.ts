@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   MAT_DIALOG_DATA,
@@ -9,18 +9,21 @@ import { RequestService } from '../../services/request.service';
 import { DefaultResponseType } from 'src/app/types/default-response.type';
 import { DialogThankComponent } from '../dialog-thank/dialog-thank.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dialog-order',
   templateUrl: './dialog-order.component.html',
   styleUrls: ['./dialog-order.component.scss'],
 })
-export class DialogOrderComponent implements OnInit {
+export class DialogOrderComponent implements OnInit, OnDestroy {
   public orderForm: FormGroup = this.fb.group({
     service: [this.data.service, Validators.required],
     name: ['', Validators.required],
     phone: ['', Validators.required],
   });
+
+  private addRequestSubscription$: Subscription | null = null;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -32,6 +35,10 @@ export class DialogOrderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.addRequestSubscription$?.unsubscribe();
+  }
 
   get service() {
     return this.orderForm.get('service');
@@ -48,7 +55,7 @@ export class DialogOrderComponent implements OnInit {
   public addRequest(): void {
     if (this.orderForm.valid) {
       if (this.name?.value && this.phone?.value && this.service?.value) {
-        this.requestService
+        this.addRequestSubscription$ = this.requestService
           .addRequest(
             this.name.value,
             this.phone.value,

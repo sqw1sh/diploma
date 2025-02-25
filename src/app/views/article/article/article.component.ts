@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { ArticleService } from 'src/app/shared/services/article.service';
 import { CommentService } from 'src/app/shared/services/comment.service';
@@ -16,8 +16,8 @@ import { environment } from 'src/environments/environment';
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.scss'],
 })
-export class ArticleComponent implements OnInit {
-  public article!: DetailArticleType;
+export class ArticleComponent implements OnInit, OnDestroy {
+  public article: DetailArticleType;
   public articles: ArticleType[] = [];
   public serverPublicPath = environment.serverPublicPath;
   public isLogged: boolean = false;
@@ -25,18 +25,34 @@ export class ArticleComponent implements OnInit {
   public commentsCount: number = 0;
   public commentInput: string = '';
 
+  private getArticleSubscription$: Subscription | null = null;
+  private getCommentsSubscription$: Subscription | null = null;
+  private addCommentSubscription$: Subscription | null = null;
+
   constructor(
     private articleService: ArticleService,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
-    private commentService: CommentService,
-    private _snackBar: MatSnackBar
-  ) {}
+    private commentService: CommentService
+  ) {
+    this.article = {
+      text: '',
+      comments: [],
+      commentsCount: 0,
+      id: '',
+      title: '',
+      description: '',
+      image: '',
+      date: '',
+      category: '',
+      url: '',
+    };
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((param) => {
       if (param['url']) {
-        this.articleService
+        this.getArticleSubscription$ = this.articleService
           .getArticle(param['url'])
           .subscribe((articleData: DetailArticleType) => {
             this.article = articleData;
@@ -58,29 +74,44 @@ export class ArticleComponent implements OnInit {
     });
   }
 
+  ngOnDestroy(): void {
+    this.getArticleSubscription$?.unsubscribe();
+    this.getCommentsSubscription$?.unsubscribe();
+    this.addCommentSubscription$?.unsubscribe();
+  }
+
   public processComment(offset: number): void {
-    this.commentService
+    this.getCommentsSubscription$ = this.commentService
       .getComments(offset, this.article.id)
       .subscribe((commentsData: CommentsType) => {
         this.commentsCount = commentsData.allCount;
 
         if (this.comments.length === 0) {
-          this.comments = commentsData.comments;
+          this.comments = commentsData.comments.sort(
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+          );
         } else {
-          this.comments = [...this.comments, ...commentsData.comments];
+          this.comments = [...this.comments, ...commentsData.comments].sort(
+            (a, b) => {
+              const aDate = new Date(a.date);
+              const bDate = new Date(b.date);
+              return bDate.getTime() - aDate.getTime();
+            }
+          );
         }
       });
   }
 
   public addComment(): void {
     if (this.commentInput) {
-      this.commentService
+      this.addCommentSubscription$ = this.commentService
         .addComment(this.commentInput, this.article.id)
         .subscribe((data: DefaultResponseType) => {
           if (data.error) {
             throw new Error(data.message);
           }
 
+          this.commentInput = '';
           this.processComment(0);
         });
     }

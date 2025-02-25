@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { CommentType } from 'src/app/types/comment.type';
 import { CommentService } from '../../services/comment.service';
@@ -7,30 +7,50 @@ import { DefaultResponseType } from 'src/app/types/default-response.type';
 import { ActionsType } from 'src/app/types/actions.type';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'comment',
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.scss'],
 })
-export class CommentComponent implements OnInit {
-  @Input() comment!: CommentType;
+export class CommentComponent implements OnInit, OnDestroy {
+  @Input() comment: CommentType;
   public actionsType = ActionType;
   public action: ActionType | null = null;
+  private applyActionForCommentSubscription$: Subscription | null = null;
+  private getActionsForCommentSubscription$: Subscription | null = null;
 
   constructor(
     private authService: AuthService,
     private commentService: CommentService,
     private _snackBar: MatSnackBar
-  ) {}
+  ) {
+    this.comment = {
+      id: '',
+      text: '',
+      date: '',
+      likesCount: 0,
+      dislikesCount: 0,
+      user: {
+        id: '',
+        name: '',
+      },
+    };
+  }
 
   ngOnInit(): void {
     this.processActions();
   }
 
+  ngOnDestroy(): void {
+    this.applyActionForCommentSubscription$?.unsubscribe();
+    this.getActionsForCommentSubscription$?.unsubscribe();
+  }
+
   public applyAction(action: ActionType): void {
     if (this.authService.isLogged) {
-      this.commentService
+      this.applyActionForCommentSubscription$ = this.commentService
         .applyActionForComment(action, this.comment.id)
         .subscribe({
           next: (data: DefaultResponseType) => {
@@ -85,7 +105,7 @@ export class CommentComponent implements OnInit {
 
   public processActions(): void {
     if (this.authService.isLogged) {
-      this.commentService
+      this.getActionsForCommentSubscription$ = this.commentService
         .getActionsForComment(this.comment.id)
         .subscribe((data: ActionsType[]) => {
           if (data[0]) {

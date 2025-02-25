@@ -9,9 +9,16 @@ import { DialogOrderComponent } from '../dialog-order/dialog-order.component';
   styleUrls: ['./service-card.component.scss'],
 })
 export class ServiceCardComponent implements OnInit {
-  @Input() service!: ServiceType;
+  @Input() service: ServiceType;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog) {
+    this.service = {
+      image: '',
+      title: '',
+      description: '',
+      price: 0,
+    };
+  }
 
   ngOnInit(): void {}
 

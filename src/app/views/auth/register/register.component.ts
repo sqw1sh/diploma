@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/auth.service';
 import { AuthType } from 'src/app/types/auth.type';
 import { DefaultResponseType } from 'src/app/types/default-response.type';
@@ -11,7 +12,7 @@ import { DefaultResponseType } from 'src/app/types/default-response.type';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   public formRegister: FormGroup = this.fb.group({
     name: [
       '',
@@ -33,6 +34,8 @@ export class RegisterComponent implements OnInit {
     agree: ['', Validators.required],
   });
 
+  private registerSubscription$: Subscription | null = null;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
@@ -41,6 +44,10 @@ export class RegisterComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.registerSubscription$?.unsubscribe();
+  }
 
   get name() {
     return this.formRegister.get('name');
@@ -57,7 +64,7 @@ export class RegisterComponent implements OnInit {
   public register(): void {
     if (this.formRegister.valid) {
       if (this.name?.value && this.email?.value && this.password?.value) {
-        this.authService
+        this.registerSubscription$ = this.authService
           .register(this.name?.value, this.email?.value, this.password?.value)
           .subscribe((data: AuthType | DefaultResponseType) => {
             let defaultResponse = data as DefaultResponseType;
