@@ -92,11 +92,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
           );
         } else {
           this.comments = [...this.comments, ...commentsData.comments].sort(
-            (a, b) => {
-              const aDate = new Date(a.date);
-              const bDate = new Date(b.date);
-              return bDate.getTime() - aDate.getTime();
-            }
+            (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
           );
         }
       });
